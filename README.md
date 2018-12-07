@@ -61,9 +61,23 @@ x$fight("skeleton")
 #> Earned 2 XP!
 #> Player Wins!  The  skeleton  has been defeated!
 
+# Check your current status
+x
+#> Player: 
+#>   Name: Hero
+#>   Level: 1
+#>   XP: 3
+#>   HP: 5/10
+
 # Rest to heal yourself; if your HP falls to 0 then it's GAME OVER!
 x$rest()
 #> Recovering 5 HP
+x
+#> Player: 
+#>   Name: Hero
+#>   Level: 1
+#>   XP: 3
+#>   HP: 10/10
 
 # Watch out, it's a giant!
 x$fight("giant")

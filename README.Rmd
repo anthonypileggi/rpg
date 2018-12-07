@@ -38,8 +38,12 @@ x$fight("slime")
 
 x$fight("skeleton")
 
+# Check your current status
+x
+
 # Rest to heal yourself; if your HP falls to 0 then it's GAME OVER!
 x$rest()
+x
 
 # Watch out, it's a giant!
 x$fight("giant")
