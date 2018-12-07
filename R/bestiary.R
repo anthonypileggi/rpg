@@ -1,6 +1,7 @@
 
 #' Monster list
-monsters <- function() {
+#' @export
+bestiary <- function() {
   dplyr::tribble(
     ~name,      ~hp,  ~mp, ~strength, ~defense, ~speed, ~magic, ~xp,
     "slime",      2,    0,         1,        1,      1,      1,   1,

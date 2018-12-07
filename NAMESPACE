@@ -3,5 +3,6 @@
 export(Battle)
 export(Monster)
 export(Player)
+export(bestiary)
 export(play)
 importFrom(magrittr,"%>%")
