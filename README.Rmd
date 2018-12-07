@@ -1,0 +1,63 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# rpg <img src="man/figures/logo.svg" align="right" alt="" width="120" />
+
+Play a role playing game in the R console.
+
+## Installation
+
+```{r, eval = FALSE}
+# Install development version from GitHub
+devtools::install_github("anthonypileggi/rpg")
+```
+
+## Example
+
+```{r}
+library(rpg)
+
+# Create a new player
+x <- Player$new("Hero")
+x
+
+# Fight some monsters
+x$fight("slime")
+
+x$fight("skeleton")
+
+# Rest to heal yourself; if your HP falls to 0 then it's GAME OVER!
+x$rest()
+
+# Watch out, it's a giant!
+x$fight("giant")
+
+# Whew, we did it.  Now we just need to deal with one last slime...
+x$fight("slime")
+```
+
+
+## Bestiary
+
+Check out the full list of monsters you can fight!
+
+```{r}
+bestiary()
+```
+
+
+## Shiny
+
+Coming soon...
