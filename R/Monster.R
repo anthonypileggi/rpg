@@ -87,13 +87,13 @@ Monster <- R6::R6Class("Monster",
 
     # set the type of monster
     monster = function() {
-      monsters <- monsters()
+      monsters <- bestiary()
       if (!is.element(tolower(self$name), monsters$name))
         self$name <- "slime"    # default to 'slime' monster
       if (sum(tolower(self$name) %in% monsters$name) == 1) {
         private$.attributes <- dplyr::filter(monsters, name == tolower(self$name))
       } else {
-        stop("You must choose a single monster!  See `monsters()` for your options.")
+        stop("You must choose a single monster!  See `bestiary()` for your options.")
       }
 
 
