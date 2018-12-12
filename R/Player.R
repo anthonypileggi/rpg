@@ -87,6 +87,14 @@ Player <- R6::R6Class("Player",
 
   active = list(
 
+    xp = function(value) {
+      if (missing(value)) {
+        private$.xp
+      } else {
+        cat(crayon::red("Fight monsters to earn experience (xp)!\n"))
+      }
+    },
+
     level = function(value) {
       if (missing(value)) {
         private$.level
