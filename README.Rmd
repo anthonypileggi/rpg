@@ -64,4 +64,6 @@ bestiary()
 
 ## Shiny
 
-Coming soon...
+I am also working on a shiny version.  It is still WIP, but it already looks really neat thanks to the [`nessy`](https://github.com/ColinFay/nessy) package!
+
+![](shiny-example.png)
