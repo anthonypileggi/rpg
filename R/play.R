@@ -21,7 +21,7 @@ play <- function() {
 
   server <- function(input, output, session) {
 
-    rv <- reactiveValues(log = NULL)
+    rv <- reactiveValues(log = NULL, player = NULL)
 
     # Create a character
     observeEvent( input$new_game , {
@@ -36,46 +36,78 @@ play <- function() {
 
     # Start game
     observeEvent( input$create , {
-      output$game <- renderUI({
+      rv$player <- Player$new(input$name)
+      rv$log <- paste0("Hello ", input$name, ". Welcome to rpg.")
+      output$game <- renderUI(uiOutput("gameplay"))
+    })
+
+    # Main Gameplay Screen
+    output$gameplay <- renderUI({
+      container_with_title(
+        "Gameplay",
+        container_with_title(
+          rv$player$name,
+          div(heart(), hp()),
+          div(star(), rv$player$xp)
+        ),
+        container_with_title(
+          "World Map",
+          balloon("What do you want to do?"),
+          button("fight", "Fight"),
+          button("rest", "Rest"),
+          button("save", "Save & Quit")
+        ),
         container_with_title(
           "Journal",
-          container_with_title(
-            "Stats",
-            input$name,
-            div(heart(), "10 / 10"),
-            div(star(), "23")
-          ),
-          container_with_title(
-            "Game",
-            balloon("What do you want to do?"),
-            button("fight", "Fight"),
-            button("rest", "Rest"),
-            button("save", "Save & Quit")
-          ),
-          uiOutput("battle")
+          HTML(paste(rv$log, collapse = "<br/>"))
         )
-      })
+      )
+    })
+
+    hp <- eventReactive(rv$log, {
+      rv$player$attributes$hp
     })
 
     # Battle
-    observeEvent( input$fight, {
-      output$battle <- renderUI({
+    output$battle <- renderUI({
+      container_with_title(
+        "Battle",
         container_with_title(
-          "Battle",
-          container_with_title(
-            "Actions",
-            radio_buttons("action", NULL, c("attack", "defend", "item", "run")),
-            button("submit", "Submit")
-          ),
-          container_with_title(
-            "Messages",
-            HTML(paste(rv$log, collapse = "<br/>"))
-          )
+          "Actions",
+          radio_buttons("action", NULL, c("attack", "defend", "item", "run")),
+          button("submit", "Submit")
+        ),
+        container_with_title(
+          "Enemy",
+          octocat_animate()
+        ),
+        container_with_title(
+          "Journal",
+          HTML(paste(rv$log, collapse = "<br/>"))
         )
-      })
+      )
     })
 
-    # log battle actions
+    # FIGHT (world map) === Load battle screen
+    observeEvent( input$fight, {
+      rv$player$fight("slime")
+      output$game <- renderUI(uiOutput("battle"))
+    })
+
+    # REST (world map) == Heal player
+    observeEvent( input$rest, {
+      rv$player$rest()
+      rv$log <- c(rv$log, paste(rv$player$name, "rests."))
+    })
+
+    # RUN (battle) === Load gameplay screen (TODO: or defeat monster!!)
+    observeEvent( input$submit, {
+      if (input$action == "run")
+        output$game <- renderUI(uiOutput("gameplay"))
+    })
+
+
+    # Journal -- Log battle actions
     observeEvent(input$submit, {
       msg <- dplyr::case_when(
         input$action %in% c("attack", "defend", "run") ~ paste0(input$name, " ", input$action, "s..."),
