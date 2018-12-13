@@ -30,43 +30,41 @@ x
 
 # Fight some monsters
 x$fight("slime")
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (2 --> 1)
-#> monster attacks!
+#> slime attacks for 1 damage!
 #>  HP reduced by 1 (10 --> 9)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (1 --> 0)
-#> Earned 1 XP!
-#> Player Wins!  The  slime  has been defeated!
+#> Player Wins!  The slime has been defeated!
 
 x$fight("skeleton")
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (5 --> 4)
-#> monster attacks!
+#> skeleton attacks for 1 damage!
 #>  HP reduced by 1 (9 --> 8)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (4 --> 3)
-#> monster attacks!
+#> skeleton attacks for 1 damage!
 #>  HP reduced by 1 (8 --> 7)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (3 --> 2)
-#> monster attacks!
+#> skeleton attacks for 1 damage!
 #>  HP reduced by 1 (7 --> 6)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (2 --> 1)
-#> monster attacks!
+#> skeleton attacks for 1 damage!
 #>  HP reduced by 1 (6 --> 5)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (1 --> 0)
-#> Earned 2 XP!
-#> Player Wins!  The  skeleton  has been defeated!
+#> Player Wins!  The skeleton has been defeated!
 
 # Check your current status
 x
 #> Player: 
 #>   Name: Hero
 #>   Level: 1
-#>   XP: 3
+#>   XP: 0
 #>   HP: 5/10
 
 # Rest to heal yourself; if your HP falls to 0 then it's GAME OVER!
@@ -76,59 +74,73 @@ x
 #> Player: 
 #>   Name: Hero
 #>   Level: 1
-#>   XP: 3
+#>   XP: 0
 #>   HP: 10/10
 
 # Watch out, it's a giant!
 x$fight("giant")
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (10 --> 9)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (10 --> 9)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (9 --> 8)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (9 --> 8)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (8 --> 7)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (8 --> 7)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (7 --> 6)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (7 --> 6)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (6 --> 5)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (6 --> 5)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (5 --> 4)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (5 --> 4)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (4 --> 3)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (4 --> 3)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (3 --> 2)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (3 --> 2)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (2 --> 1)
-#> monster attacks!
+#> giant attacks for 1 damage!
 #>  HP reduced by 1 (2 --> 1)
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (1 --> 0)
-#> Earned 3 XP!
-#> Player Wins!  The  giant  has been defeated!
+#> Player Wins!  The giant has been defeated!
 
 # Whew, we did it.  Now we just need to deal with one last slime...
 x$fight("slime")
-#> player attacks!
+#> Hero attacks for 1 damage!
 #>  HP reduced by 1 (2 --> 1)
-#> monster attacks!
+#> slime attacks for 1 damage!
 #>  HP reduced by 1 (1 --> 0)
 #> Player Dies!  Game Over!
+```
+
+Journal
+-------
+
+Access your journal to relive the adventure!
+
+``` r
+cat(tail(x$journal))
+#> Hero attacks for 1 damage!
+#>  Player Wins!  The giant has been defeated!
+#>  Hero attacks for 1 damage!
+#>  slime attacks for 1 damage!
+#>      HP reduced by 1 (1 --> 0)
+#>  Player Dies!  Game Over!
 ```
 
 Bestiary

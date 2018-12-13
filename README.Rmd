@@ -52,6 +52,13 @@ x$fight("giant")
 x$fight("slime")
 ```
 
+## Journal
+
+Access your journal to relive the adventure!
+
+```{r}
+cat(tail(x$journal))
+```
 
 ## Bestiary
 
