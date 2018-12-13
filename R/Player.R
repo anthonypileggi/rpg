@@ -35,17 +35,24 @@ Player <- R6::R6Class("Player",
     move = function() {
 
     },
-    fight = function(monster = "slime") {
+    fight = function(monster = "slime", auto = TRUE) {
       # call a Monster to fight a Battle
       private$.battle <- Battle$new(player = self, monster = Monster$new(monster))
 
-      private$.battle$battle()         # auto-fight
-      self <- private$.battle$player   # return updated player information
+      if (auto) {
+        private$.battle$attack(auto)         # auto-fight
+        self <- private$.battle$player   # return updated player information
+      } else {
+        self <- private$.battle          # return Battle object
+      }
+
       invisible(self)
     },
     rest = function() {
       # recover hp/mp
-      cat(crayon::green("Recovering", private$.base$hp - private$.attributes$hp, "HP"))
+      msg <- paste("Recovering", private$.base$hp - private$.attributes$hp, "HP")
+      cat(crayon::green(msg))
+      self$journal <- msg
       private$.attributes$hp <- private$.base$hp
     },
     shop = function() {
@@ -71,13 +78,16 @@ Player <- R6::R6Class("Player",
       if (is.numeric(value)) {
         new_value <- private$.attributes$hp - value
         msg <- paste0("\tHP reduced by ", value, " (", private$.attributes$hp, " --> ", new_value, ")\n")
+        self$journal <- msg
         cat(crayon::red(msg))
         private$.attributes$hp <- new_value
       }
     },
     earn_xp = function(value = 0) {
       if (is.numeric(value)) {
-        cat(crayon::green("Earned", value, "XP!\n"))
+        msg <- paste("Earned", value, "XP!\n")
+        self$journal <- msg
+        cat(crayon::green(msg))
         private$.xp <- private$.xp + value
         # TODO: update player level (if enough XP earned)
       }
@@ -109,6 +119,18 @@ Player <- R6::R6Class("Player",
       } else {
         cat(crayon::red("You cannot change your attributes manually!\n"))
       }
+    },
+
+    journal = function(value) {
+      if (missing(value)) {
+        private$.journal
+      } else {
+        if (is.character(value)) {
+          private$.journal <- c(private$.journal, value)
+        } else {
+          cat(crayon::red("Invalid journal entry!\n"))
+        }
+      }
     }
 
   ),
@@ -127,6 +149,7 @@ Player <- R6::R6Class("Player",
       magic = 1
     ),
     .base = NULL,
+    .journal = NULL,
 
     # battle
     .battle = NULL,
