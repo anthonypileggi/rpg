@@ -35,9 +35,8 @@ Battle <- R6::R6Class("Battle",
       }
 
       # [auto == TRUE] keep going until player or monster has {hp = 0}
-      i <- 0
-      while (i < 2 || (auto & self$player$attributes$hp > 0 & self$monster$attributes$hp > 0)) {
-        i <- i + 1
+      private$act()
+      while (private$.turn != "player" || (auto & !private$.done)) {
         private$act()               # take a turn (player/monster)
         private$check_status()      # check the status of player/monster
       }
@@ -93,6 +92,8 @@ Battle <- R6::R6Class("Battle",
         self$player$journal <- msg
         cat(crayon::red(msg))
         private$.done <- TRUE
+        if (private$.done & self$monster$attributes$hp <= 0)
+          self$player$earn_xp(self$monster$attributes$xp)
       }
     },
 
